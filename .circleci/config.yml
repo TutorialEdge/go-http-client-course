@@ -44,8 +44,8 @@ jobs:
             go test ./... -v
 
   lint-service:
-    docker: 
-      - image: golangci/golangci-lint
+    docker:
+      - image: cimg/go:1.19.1
     steps:
       - checkout
       - golangci-lint/lint: 
@@ -69,3 +69,5 @@ workflows:
       - race-check-service
       - benchmark-service
       - code-coverage
+
+# VS Code Extension Version: 1.0.1
