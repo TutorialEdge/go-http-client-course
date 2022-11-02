@@ -48,10 +48,8 @@ jobs:
       - image: golangci/golangci-lint
     steps:
       - checkout
-      - run:
-          name: "lint Service"
-          command: |
-            golangci-lint run --timeout 120s
+      - golangci-lint/lint: 
+          version: 1.50.1
 
   code-coverage:
     docker:
