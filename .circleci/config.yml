@@ -44,11 +44,11 @@ jobs:
             go test ./... -v
 
   lint-service:
-    docker:
-      - image: cimg/go:1.19.1
+    docker: 
+      - image: golangci/golangci-lint
     steps:
       - checkout
-      - golangci-lint/lint: 
+      - golangci-lint/lint:
           version: 1.50.1
 
   code-coverage:
