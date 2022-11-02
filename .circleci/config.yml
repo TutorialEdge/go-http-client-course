@@ -7,7 +7,7 @@ orbs:
 jobs:
   race-check-service:
     docker:
-      - image: cimg/go:1.19.1
+      - image: cimg/go:1.19.3
     steps:
       - checkout
       - run:
@@ -18,7 +18,7 @@ jobs:
   
   benchmark-service:
     docker:
-      - image: cimg/go:1.19.1
+      - image: cimg/go:1.19.3
     steps:
       - checkout
       - run:
@@ -29,7 +29,7 @@ jobs:
   
   test-service:
     docker:
-      - image: cimg/go:1.19.1
+      - image: cimg/go:1.19.3
     steps:
       - checkout
       - run:
@@ -40,7 +40,7 @@ jobs:
 
   lint-service:
     docker: 
-      - image: cimg/go:1.19.1
+      - image: cimg/go:1.19.3
     steps:
       - checkout
       - run: 
@@ -54,7 +54,7 @@ jobs:
 
   code-coverage:
     docker:
-      - image: cimg/go:1.19.1
+      - image: cimg/go:1.19.3
     steps:
       - checkout
       - run:
