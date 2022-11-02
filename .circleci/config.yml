@@ -2,8 +2,6 @@ version: 2.1
 
 orbs: 
   go: circleci/go@1.7.1
-  golangci-lint: timakin/golangci-lint@0.1.1
-  docker: circleci/docker@2.1.4
   codecov: codecov/codecov@3
 
 jobs:
@@ -12,7 +10,6 @@ jobs:
       - image: cimg/go:1.19.1
     steps:
       - checkout
-      - go/install
       - run:
           name: "Test Service"
           command: |
@@ -24,7 +21,6 @@ jobs:
       - image: cimg/go:1.19.1
     steps:
       - checkout
-      - go/install
       - run:
           name: "Test Service"
           command: |
@@ -36,7 +32,6 @@ jobs:
       - image: cimg/go:1.19.1
     steps:
       - checkout
-      - go/install
       - run:
           name: "Test Service"
           command: |
