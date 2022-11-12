@@ -27,7 +27,7 @@ func (c *Client) GetPokemonByName(ctx context.Context, name string) (Pokemon, er
 	// actually perform the http request
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
-		return Pokemon{}, err
+		return Pokemon{}, PokemonFetchErr{Message: err.Error()}
 	}
 	// ALWAYS close the request body - otherwise you end up
 	// in a world of pain
@@ -37,7 +37,7 @@ func (c *Client) GetPokemonByName(ctx context.Context, name string) (Pokemon, er
 	var pokemon Pokemon
 	err = json.NewDecoder(resp.Body).Decode(&pokemon)
 	if err != nil {
-		return Pokemon{}, err
+		return Pokemon{}, PokemonFetchErr{Message: err.Error()}
 	}
 
 	// Finally, we return the pokemon
