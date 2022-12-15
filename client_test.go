@@ -2,34 +2,27 @@ package client_test
 
 import (
 	"context"
+	"fmt"
+	"net/http"
+	"net/http/httptest"
 	"testing"
 
-	pokeClient "github.com/TutorialEdge/go-http-client-course"
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
+	client "github.com/TutorialEdge/go-http-client-course"
+	"github.com/stretchr/testify/assert"
 )
 
-func TestBooks(t *testing.T) {
-	RegisterFailHandler(Fail)
-	RunSpecs(t, "Books Suite")
-}
+func TestGetPokemonByName(t *testing.T) {
+	t.Run("can get and parse a pokemon by its name", func(t *testing.T) {
+		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			fmt.Fprintf(w, `{"name":"pikachu"}`)
+		}))
+		defer ts.Close()
 
-var _ = Describe("Client", func() {
-	Describe("Fetching pokemon with a client", func() {
-		Context("with a regular client with no options", func() {
+		myClient := client.NewClient()
+		resp, err := myClient.GetPokemonByName(context.Background(), "pikachu")
+		assert.NoError(t, err)
+		assert.Equal(t, "pikachu", resp.Name)
 
-			client := pokeClient.NewClient()
-			var pokemon pokeClient.Pokemon
-			var err error
-			pokemon, err = client.GetPokemonByName(context.Background(), "pikachu")
-
-			It("should not have errored", func() {
-				Expect(err).NotTo(HaveOccurred())
-			})
-
-			It("should have the correct id", func() {
-				Expect(pokemon.ID).To(Equal(25))
-			})
-		})
 	})
-})
+
+}
