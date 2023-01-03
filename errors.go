@@ -1,11 +1,19 @@
 package client
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	ErrFetchingPokemon = errors.New("failed to fetch pokemon")
+)
 
 type PokemonFetchErr struct {
-	Message string
+	StatusCode int
+	Message    string
 }
 
 func (e PokemonFetchErr) Error() string {
-	return fmt.Sprintf("failed to fetch a pokemon: %s", e.Message)
+	return fmt.Sprintf("failed to fetch pokemon: %s with statuscode: %d", e.Message, e.StatusCode)
 }

@@ -2,23 +2,22 @@ package client
 
 import (
 	"net/http"
-	"time"
 )
 
-// Client - Our magical Client
+var (
+	DefaultAPIURL = "https://pokeapi.co"
+)
+
 type Client struct {
+	apiURL     string
 	httpClient *http.Client
 }
 
-// Option - a handy type definition that will
-// save a bit of repetitive typing
 type Option func(c *Client)
 
-// NewClient - returns a new instance of our http client
-func NewClient(
-	opts ...Option,
-) *Client {
+func NewClient(opts ...Option) *Client {
 	client := &Client{
+		apiURL:     DefaultAPIURL,
 		httpClient: http.DefaultClient,
 	}
 
@@ -29,17 +28,13 @@ func NewClient(
 	return client
 }
 
-// WithTimeout - Allows us to define custom timeouts for
-// our HTTP Client.
-func WithTimeout(timeout time.Duration) Option {
+func WithAPIURL(url string) Option {
 	return func(c *Client) {
-		c.httpClient.Timeout = timeout
+		c.apiURL = url
 	}
 }
 
-// WithHttpClient - Maybe we want incredibly specific configuration
-// for our http client
-func WithHttpClient(httpClient *http.Client) Option {
+func WithHTTPClient(httpClient *http.Client) Option {
 	return func(c *Client) {
 		c.httpClient = httpClient
 	}
